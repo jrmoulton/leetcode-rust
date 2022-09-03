@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["longest_palindrome","Returns the longest palindrome subsequence in the string"]]};

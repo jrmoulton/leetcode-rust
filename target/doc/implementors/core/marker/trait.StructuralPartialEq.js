@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"rust_test":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html\" title=\"trait core::marker::StructuralPartialEq\">StructuralPartialEq</a> for <a class=\"struct\" href=\"rust_test/remove_nth_from_end/struct.ListNode.html\" title=\"struct rust_test::remove_nth_from_end::ListNode\">ListNode</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

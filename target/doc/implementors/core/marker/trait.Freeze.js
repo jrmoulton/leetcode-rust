@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"rust_test":[["impl Freeze for <a class=\"struct\" href=\"rust_test/remove_nth_from_end/struct.ListNode.html\" title=\"struct rust_test::remove_nth_from_end::ListNode\">ListNode</a>",1,["rust_test::remove_nth_from_end::ListNode"]]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
