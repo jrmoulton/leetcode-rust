@@ -42,13 +42,15 @@
 //! The number of nodes in the tree is in the range \[1, 1000\].
 //! 0 <= Node.val <= 1000
 
+use mockall::predicate::*;
+use mockall::*;
+
 #[derive(Debug, PartialEq, Eq)]
 pub struct TreeNode {
     pub val: i32,
     pub left: Option<Rc<RefCell<TreeNode>>>,
     pub right: Option<Rc<RefCell<TreeNode>>>,
 }
-
 impl TreeNode {
     #[inline]
     pub fn new(val: i32) -> Self {
@@ -57,6 +59,14 @@ impl TreeNode {
             left: None,
             right: None,
         }
+    }
+}
+mock! {
+    pub TreeNode {
+        pub fn new(val: i32) -> Self;
+    }
+    impl PartialEq for TreeNode {
+        fn eq(&self, rhs: &Self) -> bool;
     }
 }
 

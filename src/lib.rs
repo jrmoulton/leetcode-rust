@@ -1,5 +1,10 @@
 pub mod atoi;
+pub mod find_pivot_index;
 pub mod fizz_buzz;
+pub mod is_subsequence;
+pub mod isomorphic_strings;
+pub mod merge_two_sorted_lists;
+pub mod odd_even_jumps;
 pub mod palindrome_sub;
 pub mod power_of_four;
 pub mod power_of_two;
@@ -7,35 +12,10 @@ pub mod remove_nth_from_end;
 pub mod reverse_wods_in_a_string_iii;
 pub mod roman_to_integer;
 pub mod rotate_image;
+pub mod running_sum_1d_array;
 pub mod vertical_order_traversal;
 
-mod tests;
-
-pub mod merge_two_sorted_lists {
-    //! You are given the heads of two sorted linked lists list1 and list2.
-    //!
-    //! Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
-    //!
-    //! Return the head of the merged linked list.
-    //!
-    //! Example 1:
-    //! Input: list1 = \[1,2,4\], list2 = \[1,3,4\]
-    //! Output: \[1,1,2,3,4,4\]
-    //!
-    //! Example 2:
-    //! Input: list1 = \[\], list2 = \[\]
-    //! Output: \[\]
-    //!
-    //! Example 3:
-    //! Input: list1 = \[\], list2 = \[0\]
-    //! Output: \[0\]
-    //!
-    //! Constraints:
-    //! The number of nodes in both lists is in the range \[0, 50\].
-    //! -100 <= Node.val <= 100
-    //! Both list1 and list2 are sorted in non-decreasing order.
-
-    /// Definition for singly-linked list.
+pub mod linked_list {
     #[derive(PartialEq, Eq, Clone, Debug)]
     pub struct ListNode {
         pub val: i32,
@@ -44,53 +24,47 @@ pub mod merge_two_sorted_lists {
 
     impl ListNode {
         #[inline]
-        fn new(val: i32) -> Self {
+        pub fn new(val: i32) -> Self {
             ListNode { next: None, val }
         }
     }
-    fn push(head: Box<ListNode>, new_node: Box<ListNode>) {
-        let mut temp = head;
-        while let Some(next) = temp.next {
-            temp = next;
-        }
-        temp.next = Some(new_node);
-    }
 
-    /// Merges two sorted lists into a single sorted list
-    // Have a return list. Maintian list1 and list2 as pointers to the pos in each list.
-    // while both not None:
-    //      compare pointers. Add the smaller. Move poionter
-    pub fn merge_two_lilsts(
-        list1: Option<Box<ListNode>>,
-        list2: Option<Box<ListNode>>,
-    ) -> Option<Box<ListNode>> {
-        let base = if list1.is_some() {
-            list1
-        } else if list2.is_some() {
-            list2
-        } else {
-            return None;
-        };
-        let list1_head = &list1;
-        let list2_head = &list2;
-        match (list1_head, list2_head) {
-            (None, None) => {
-                return list1;
+    #[derive(PartialEq, Eq, Clone, Debug)]
+    pub struct LinkedList {
+        pub head: Option<Box<ListNode>>,
+    }
+    impl LinkedList {
+        pub fn new(head: Option<Box<ListNode>>) -> Self {
+            Self { head }
+        }
+    }
+    impl From<Vec<i32>> for LinkedList {
+        fn from(vec: Vec<i32>) -> Self {
+            let mut root = None;
+            for val in vec.into_iter().rev() {
+                root = Some(Box::new(ListNode { val, next: root }));
             }
-            (None, Some(inner_list2)) => {
-                push(
-                    base.expect("base case already handled"),
-                    inner_list2.clone(),
-                );
-            }
-            (Some(inner_list1), None) => {
-                push(
-                    base.expect("base case already handled"),
-                    inner_list1.clone(),
-                );
-            }
-            (Some(_), Some(_)) => todo!(),
-        };
-        todo!()
+            LinkedList::new(root)
+        }
     }
 }
+
+pub mod reverse_linked_list {
+    use crate::linked_list::LinkedList;
+
+    pub fn reverse_list(list: LinkedList) -> LinkedList {
+        let head = list.head;
+        let mut prev = None;
+        let mut curr = head;
+        while let Some(mut inner) = curr.take() {
+            let temp = inner.next.take();
+            inner.next = prev.take();
+            prev = Some(inner);
+            curr = temp;
+        }
+        LinkedList::new(prev)
+    }
+}
+
+#[cfg(test)]
+mod tests;
